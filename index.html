@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es-AR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Semáforo del Dolor | VOLVER – Recuperación Real</title>
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Reporte rápido de evolución post-sesión en 30 segundos – VOLVER Recuperación Real.">
+
+    <!-- Favicon circular oficial VOLVER (#1F4268 + V blanca) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231F4268'/%3E%3Cpath d='M10.5 11.5L18.4 29H21.6L29.5 11.5H25.1L20 23.1L14.9 11.5H10.5Z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+
+    <!-- Google Fonts: Inter + JetBrains Mono (métricas clínicas estilo Panel Android) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+                    },
+                    colors: {
+                        volver: {
+                            black: '#000000',       // Negro base: marco principal y barra
+                            canvas: '#121212',      // Carbón lienzo: fondo principal y sub-bloques
+                            card: '#181818',        // Carbón elevado: tarjetas y secciones
+                            chip: '#1C2026',        // Carbón frío: chips inactivos y botones livianos
+                            field: '#20242A',       // Superficie de campos: inputs y textarea
+                            sec: '#242424',         // Gris botón secundario
+                            secHover: '#2E333A',    // Hover botón secundario
+                            blue: '#1F4268',        // Azul VOLVER principal
+                            blueHover: '#2A5482',   // Hover Azul VOLVER
+                            night: '#142D49',       // Azul noche: hero, avatares, texto sobre claro
+                            steel: '#426B8F',       // Azul acero: bordes de foco y acentos
+                            steelLight: '#7AA3C8',  // Azul acero claro: etiquetas e íconos sobre oscuro
+                            ice: '#EAF1F7',         // Azul hielo: avisos toast y botones claros
+                            graphite: '#202833',    // Grafito VOLVER: tarjetas seleccionadas
+                            textMain: '#F7F9FC',    // Blanco frío: lectura principal
+                            textSub: '#9CA8B7',     // Gris secundario modo oscuro
+                            textMuted: '#687586',   // Gris medio VOLVER: placeholders y metadatos
+                            green: '#5E8F7A',       // Verde recuperación
+                            greenLight: '#79AD97',  // Verde legible sobre oscuro
+                            amber: '#C98A3A',       // Ámbar clínico sobrio (Día 3 / EVA 4-6)
+                            amberLight: '#DFAA65',  // Ámbar claro legible
+                            coral: '#C45A65',       // Coral clínico sobrio (EVA 7-10)
+                            coralLight: '#E2858E',  // Coral claro legible
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --pain-color: #5E8F7A;
+            --pain-light: #79AD97;
+            --pain-glow: rgba(94, 143, 122, 0.28);
+            --slider-percent: 30%;
+            --hairline: rgba(220, 227, 234, 0.08);
+            --hairline-subtle: rgba(220, 227, 234, 0.06);
+        }
+
+        html, body {
+            background-color: #000000;
+            color: #F7F9FC;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: rgba(156, 168, 183, 0.22); border-radius: 9999px; }
+
+        /* Lienzo principal estilo Android VOLVER Dark Edition */
+        .app-shell {
+            background-color: #121212;
+            background-image: linear-gradient(180deg, rgba(20, 45, 73, 0.42) 0px, rgba(18, 18, 18, 0) 260px);
+        }
+
+        .card-volver {
+            background-color: #181818;
+            border: 1px solid var(--hairline);
+            border-radius: 22px;
+        }
+
+        .subblock-volver {
+            background-color: #121212;
+            border: 1px solid var(--hairline-subtle);
+            border-radius: 16px;
+        }
+
+        .hero-volver {
+            background: linear-gradient(155deg, #142D49 0%, #181818 68%, #181818 100%);
+            border: 1px solid rgba(220, 227, 234, 0.09);
+            border-radius: 24px;
+        }
+
+        .field-volver {
+            background-color: #20242A;
+            border: 1px solid rgba(220, 227, 234, 0.08);
+            color: #F7F9FC;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+        }
+
+        .field-volver::placeholder {
+            color: #687586;
+        }
+
+        .field-volver:focus {
+            outline: none;
+            border-color: #426B8F;
+            box-shadow: 0 0 0 3px rgba(66, 107, 143, 0.22);
+        }
+
+        /* Deslizador personalizado Semáforo del Dolor (sobrio y preciso) */
+        input[type="range"].pain-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 9999px;
+            background: linear-gradient(
+                to right,
+                var(--pain-color) 0%,
+                var(--pain-light) var(--slider-percent),
+                #20242A var(--slider-percent),
+                #20242A 100%
+            );
+            border: 1px solid rgba(220, 227, 234, 0.06);
+            outline: none;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        input[type="range"].pain-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 4px solid var(--pain-color);
+            box-shadow: 0 0 0 4px var(--pain-glow), 0 2px 8px rgba(0, 0, 0, 0.65);
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="range"].pain-slider::-webkit-slider-thumb:active {
+            transform: scale(1.12);
+        }
+
+        input[type="range"].pain-slider::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 4px solid var(--pain-color);
+            box-shadow: 0 0 0 4px var(--pain-glow), 0 2px 8px rgba(0, 0, 0, 0.65);
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.65; transform: scale(1.15); }
+        }
+
+        .status-dot {
+            animation: subtlePulse 2.4s infinite ease-in-out;
+        }
+
+        .avatar-fade {
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased selection:bg-[#1F4268] selection:text-white overflow-x-hidden">
+
+    <!-- Marco móvil estilo App Android VOLVER -->
+    <div class="app-shell min-h-screen w-full max-w-[480px] mx-auto sm:border-x sm:border-[#DCE3EA]/[0.07] flex flex-col justify-between relative">
+
+        <!-- BARRA SUPERIOR FIJA (Negro base #000000, idéntica al Panel Clínico Android) -->
+        <header class="sticky top-0 z-30 bg-[#000000]/95 backdrop-blur-md border-b border-[#DCE3EA]/[0.07] px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <!-- Logo circular Azul VOLVER #1F4268 -->
+                <div class="w-9 h-9 rounded-full bg-[#1F4268] flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4.2 5.2L10.8 19.4H13.2L19.8 5.2H16.5L12 15.2L7.5 5.2H4.2Z" fill="#FFFFFF"/>
+                    </svg>
+                </div>
+                <span class="text-[19px] font-extrabold tracking-[0.04em] text-white leading-none">VOLVER</span>
+            </div>
+
+            <!-- Pastilla derecha estilo botón "Nube" del Panel Android -->
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-xs font-semibold text-[#F7F9FC]">
+                <span class="w-2 h-2 rounded-full bg-[#DFAA65]"></span>
+                <span>Día 3 · Semáforo</span>
+            </div>
+        </header>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="px-4 pt-4 pb-6 flex flex-col gap-3.5 flex-1">
+
+            <!-- HERO DE BIENVENIDA PERSONALIZADO CON AVATAR -->
+            <section class="hero-volver p-4 relative overflow-hidden">
+                <!-- Marca de agua V segmentada oficial muy sutil -->
+                <svg class="w-36 h-36 absolute -right-5 -top-4 opacity-[0.045] pointer-events-none" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+                    <path d="M16 20L54 102H66L104 20H84L60 73L36 20H16Z" fill="#EAF1F7"/>
+                </svg>
+
+                <div class="relative z-10 flex items-center gap-3.5">
+                    <!-- Retrato Avatar Gabi en Azul Noche -->
+                    <div class="relative shrink-0">
+                        <div class="w-20 h-20 sm:w-[88px] sm:h-[88px] rounded-2xl overflow-hidden bg-[#142D49] border border-[#426B8F]/50 shadow-md">
+                            <img
+                                src="./assets/avatar-hero.jpg"
+                                alt="Gabi – Seguimiento clínico VOLVER"
+                                class="w-full h-full object-cover object-top"
+                            >
+                        </div>
+                        <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#181818] flex items-center justify-center border border-[#DCE3EA]/[0.12]" title="Seguimiento activo">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#79AD97]"></span>
+                        </span>
+                    </div>
+
+                    <!-- Texto cercano de bienvenida -->
+                    <div class="min-w-0 flex-1">
+                        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7AA3C8]">
+                            Recuperación Real · Check-in 30s
+                        </p>
+                        <h1 id="dynamicGreeting" class="text-[20px] sm:text-[22px] font-extrabold tracking-tight text-white leading-snug mt-0.5 truncate">
+                            ¡Hola! ¿Cómo venís hoy?
+                        </h1>
+                        <p class="text-xs text-[#9CA8B7] leading-relaxed mt-1">
+                            Contame en 30 segundos cómo respondió tu cuerpo después de la sesión.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pastillas dinámicas si llegan datos por URL (?z=Zona) -->
+                <div id="heroContextBar" class="hidden relative z-10 mt-3 pt-2.5 border-t border-[#DCE3EA]/[0.08] flex flex-wrap items-center gap-2">
+                    <span id="heroZoneBadge" class="hidden inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#121212]/80 border border-[#DCE3EA]/[0.07] font-mono text-[11px] text-[#7AA3C8]"></span>
+                    <span id="heroSessionBadge" class="hidden inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#5E8F7A]/15 border border-[#79AD97]/30 font-mono text-[11px] font-semibold text-[#79AD97]"></span>
+                </div>
+            </section>
+
+            <!-- 1. DATOS DEL PACIENTE (COMPACTO) -->
+            <section class="card-volver p-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="patientName" class="block text-xs font-semibold text-[#9CA8B7] mb-1.5 ml-0.5">
+                            Tu nombre <span class="font-normal text-[#687586]">(opcional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="patientName"
+                            placeholder="Ej. Martín Gómez"
+                            autocomplete="given-name"
+                            class="field-volver w-full rounded-xl px-3.5 py-2.5 text-sm"
+                        >
+                    </div>
+                    <div>
+                        <label for="treatedZone" class="block text-xs font-semibold text-[#9CA8B7] mb-1.5 ml-0.5">
+                            Zona tratada <span class="font-normal text-[#687586]">(opcional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="treatedZone"
+                            placeholder="Ej. Lumbar L4-L5, hombro..."
+                            class="field-volver w-full rounded-xl px-3.5 py-2.5 text-sm"
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. SEMÁFORO DEL DOLOR (EVA 0 - 10) + AVATAR DINÁMICO -->
+            <section class="card-volver p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-2 mb-3.5">
+                    <label for="painSlider" class="text-[15px] font-bold text-white tracking-tight">
+                        ¿En qué nivel está tu dolor hoy?
+                    </label>
+                    <span class="font-mono text-[11px] font-semibold text-[#687586] shrink-0">EVA 0–10</span>
+                </div>
+
+                <!-- Sub-bloque Carbón lienzo (#121212): Número + Pastilla clínica -->
+                <div class="subblock-volver px-4 py-3.5 mb-4 flex items-center justify-between gap-2">
+                    <div class="flex items-baseline gap-1.5">
+                        <span id="painValue" class="font-mono text-4xl font-bold tracking-tight text-white">3</span>
+                        <span class="font-mono text-xs font-medium text-[#687586]">/ 10</span>
+                    </div>
+
+                    <div
+                        id="painStatusPill"
+                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200"
+                        style="background-color: rgba(94, 143, 122, 0.16); border-color: rgba(121, 173, 151, 0.36); color: #79AD97;"
+                    >
+                        <span id="painStatusDot" class="w-2 h-2 rounded-full status-dot" style="background-color: #79AD97;"></span>
+                        <span id="painStatusText">Leve / Controlado</span>
+                    </div>
+                </div>
+
+                <!-- Deslizador EVA -->
+                <div class="px-0.5">
+                    <input
+                        type="range"
+                        id="painSlider"
+                        min="0"
+                        max="10"
+                        step="1"
+                        value="3"
+                        aria-label="Nivel de dolor de 0 a 10"
+                        class="pain-slider"
+                    >
+                    <!-- Escala rápida tocable 0..10 -->
+                    <div class="relative z-10 flex justify-between items-center font-mono text-[11px] text-[#687586] mt-3.5 select-none">
+                        <button type="button" data-quick-eva="0" class="hover:text-[#F7F9FC] hover:bg-[#1C2026] rounded-md px-1.5 py-1 -ml-1.5 transition cursor-pointer">0 · Sin dolor</button>
+                        <button type="button" data-quick-eva="5" class="hover:text-[#F7F9FC] hover:bg-[#1C2026] rounded-md px-1.5 py-1 transition cursor-pointer">5 · Moderado</button>
+                        <button type="button" data-quick-eva="10" class="hover:text-[#F7F9FC] hover:bg-[#1C2026] rounded-md px-1.5 py-1 -mr-1.5 transition cursor-pointer">10 · Intenso</button>
+                    </div>
+                </div>
+
+                <!-- Lectura clínica viva con Avatar según zona del Semáforo -->
+                <div
+                    id="avatarFeedbackBox"
+                    class="mt-4 rounded-2xl p-3 border transition-colors duration-200 flex items-center gap-3"
+                    style="background-color: #121212; border-color: rgba(121, 173, 151, 0.25);"
+                >
+                    <div class="w-14 h-14 rounded-xl overflow-hidden bg-[#181818] border border-[#DCE3EA]/[0.09] shrink-0">
+                        <img
+                            id="painAvatarImg"
+                            src="./assets/avatar-eva-low.jpg"
+                            alt="Lectura clínica VOLVER"
+                            class="w-full h-full object-cover object-top avatar-fade"
+                        >
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <span id="painInsightTag" class="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#79AD97] block">
+                            Respuesta favorable
+                        </span>
+                        <p id="painInsightText" class="text-xs text-[#F7F9FC] leading-snug mt-0.5">
+                            Muy buena señal: el cuerpo asimiló bien el estímulo y bajó la tensión defensiva.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. EVOLUCIÓN GENERAL (SELECCIÓN ÚNICA) -->
+            <section id="evolutionSection" class="card-volver p-4 sm:p-5 transition-colors">
+                <h2 class="text-[15px] font-bold text-white tracking-tight mb-3.5">
+                    Comparado con antes de la sesión, ¿cómo te sentís?
+                </h2>
+
+                <div class="grid grid-cols-2 gap-2.5" role="radiogroup" aria-label="Evolución general">
+                    <!-- Opción 1: Mucho mejor -->
+                    <button
+                        type="button"
+                        data-evolution="Mucho mejor"
+                        aria-checked="false"
+                        class="evolution-card group flex flex-col items-start gap-2.5 p-3.5 rounded-2xl bg-[#121212] border border-[#DCE3EA]/[0.07] text-left transition-all duration-150 active:scale-[0.98] hover:bg-[#1C2026]"
+                    >
+                        <span class="w-8 h-8 rounded-xl bg-[#5E8F7A]/20 border border-[#79AD97]/30 flex items-center justify-center text-[#79AD97]">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </span>
+                        <span class="evol-label text-xs sm:text-[13px] font-semibold text-[#F7F9FC]">Mucho mejor</span>
+                    </button>
+
+                    <!-- Opción 2: Mejoró bastante -->
+                    <button
+                        type="button"
+                        data-evolution="Mejoró bastante"
+                        aria-checked="false"
+                        class="evolution-card group flex flex-col items-start gap-2.5 p-3.5 rounded-2xl bg-[#121212] border border-[#DCE3EA]/[0.07] text-left transition-all duration-150 active:scale-[0.98] hover:bg-[#1C2026]"
+                    >
+                        <span class="w-8 h-8 rounded-xl bg-[#426B8F]/20 border border-[#7AA3C8]/30 flex items-center justify-center text-[#7AA3C8]">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                            </svg>
+                        </span>
+                        <span class="evol-label text-xs sm:text-[13px] font-semibold text-[#F7F9FC]">Mejoró bastante</span>
+                    </button>
+
+                    <!-- Opción 3: Sigue igual -->
+                    <button
+                        type="button"
+                        data-evolution="Sigue igual"
+                        aria-checked="false"
+                        class="evolution-card group flex flex-col items-start gap-2.5 p-3.5 rounded-2xl bg-[#121212] border border-[#DCE3EA]/[0.07] text-left transition-all duration-150 active:scale-[0.98] hover:bg-[#1C2026]"
+                    >
+                        <span class="w-8 h-8 rounded-xl bg-[#C98A3A]/20 border border-[#DFAA65]/30 flex items-center justify-center text-[#DFAA65]">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"/>
+                            </svg>
+                        </span>
+                        <span class="evol-label text-xs sm:text-[13px] font-semibold text-[#F7F9FC]">Sigue igual</span>
+                    </button>
+
+                    <!-- Opción 4: Molestó un poco más -->
+                    <button
+                        type="button"
+                        data-evolution="Molestó un poco más"
+                        aria-checked="false"
+                        class="evolution-card group flex flex-col items-start gap-2.5 p-3.5 rounded-2xl bg-[#121212] border border-[#DCE3EA]/[0.07] text-left transition-all duration-150 active:scale-[0.98] hover:bg-[#1C2026]"
+                    >
+                        <span class="w-8 h-8 rounded-xl bg-[#C45A65]/20 border border-[#E2858E]/30 flex items-center justify-center text-[#E2858E]">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                            </svg>
+                        </span>
+                        <span class="evol-label text-xs sm:text-[13px] font-semibold text-[#F7F9FC]">Molestó un poco más</span>
+                    </button>
+                </div>
+
+                <!-- Alerta de validación inline (Coral clínico sobrio) -->
+                <p id="evolutionError" class="hidden text-xs font-semibold text-[#E2858E] mt-3 flex items-center gap-1.5">
+                    <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <span>Elegí una opción para poder evaluar tu evolución.</span>
+                </p>
+            </section>
+
+            <!-- 4. CAMBIOS NOTADOS (CHIPS ESTILO FILTROS PANEL ANDROID) -->
+            <section class="card-volver p-4 sm:p-5">
+                <h2 class="text-[15px] font-bold text-white tracking-tight">
+                    Cambios que notaste estos días
+                </h2>
+                <p class="text-xs text-[#9CA8B7] mt-0.5 mb-3.5">Podés tocar todos los que apliquen</p>
+
+                <div class="flex flex-wrap gap-2" id="symptomsContainer">
+                    <button type="button" data-symptom="Dormí mejor" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#7AA3C8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                        </svg>
+                        <span>Dormí mejor</span>
+                    </button>
+
+                    <button type="button" data-symptom="Más movilidad" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#7AA3C8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                        </svg>
+                        <span>Más movilidad</span>
+                    </button>
+
+                    <button type="button" data-symptom="Alivio rápido" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#79AD97]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <span>Alivio rápido</span>
+                    </button>
+
+                    <button type="button" data-symptom="Menos rigidez" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#79AD97]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Menos rigidez</span>
+                    </button>
+
+                    <button type="button" data-symptom="Zona más liviana" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#7AA3C8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                        <span>Zona más liviana</span>
+                    </button>
+
+                    <button type="button" data-symptom="Tensión al moverme" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#DFAA65]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                        <span>Tensión al moverme</span>
+                    </button>
+
+                    <button type="button" data-symptom="Reacción post-sesión" class="symptom-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-[#1C2026] border border-[#DCE3EA]/[0.08] text-[#9CA8B7] transition-all duration-150 active:scale-95 hover:text-[#F7F9FC]">
+                        <svg class="w-3.5 h-3.5 text-[#E2858E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Reacción post-sesión</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 5. NOTA BREVE, PRÓXIMO TURNO & SELLO DE PROTOCOLO CON AVATAR -->
+            <section class="card-volver p-4 sm:p-5 flex flex-col gap-4">
+                <!-- Nota opcional -->
+                <div>
+                    <label for="patientComment" class="block text-[15px] font-bold text-white tracking-tight mb-2">
+                        ¿Algo más que quieras contarme? <span class="text-xs font-normal text-[#687586]">(opcional)</span>
+                    </label>
+                    <textarea
+                        id="patientComment"
+                        rows="2"
+                        placeholder="Ej. Me tiró un poco al levantarme, pude volver a entrenar..."
+                        class="field-volver w-full rounded-xl px-3.5 py-2.5 text-sm resize-none"
+                    ></textarea>
+                </div>
+
+                <!-- Próximo turno -->
+                <div>
+                    <span class="block text-[15px] font-bold text-white tracking-tight mb-2.5">
+                        Próximo turno
+                    </span>
+                    <div class="flex flex-col gap-2" role="radiogroup" aria-label="Próximo turno">
+                        <button
+                            type="button"
+                            data-session="Sí, pasame horarios"
+                            aria-checked="true"
+                            class="session-option flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-150 bg-[#202833] text-white border border-[#426B8F]"
+                        >
+                            <span>Sí, pasame horarios</span>
+                            <span class="session-dot w-4 h-4 rounded-full border-2 border-[#7AA3C8] flex items-center justify-center shrink-0">
+                                <span class="w-2 h-2 rounded-full bg-[#7AA3C8]"></span>
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            data-session="Lo vemos la semana que viene"
+                            aria-checked="false"
+                            class="session-option flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-150 bg-[#121212] text-[#9CA8B7] border border-[#DCE3EA]/[0.07] hover:bg-[#1C2026] hover:text-[#F7F9FC]"
+                        >
+                            <span>Lo vemos la semana que viene</span>
+                            <span class="session-dot w-4 h-4 rounded-full border-2 border-[#687586] flex items-center justify-center shrink-0">
+                                <span class="w-2 h-2 rounded-full bg-[#7AA3C8] hidden"></span>
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            data-session="Por ahora estoy bien"
+                            aria-checked="false"
+                            class="session-option flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-150 bg-[#121212] text-[#9CA8B7] border border-[#DCE3EA]/[0.07] hover:bg-[#1C2026] hover:text-[#F7F9FC]"
+                        >
+                            <span>Por ahora estoy bien</span>
+                            <span class="session-dot w-4 h-4 rounded-full border-2 border-[#687586] flex items-center justify-center shrink-0">
+                                <span class="w-2 h-2 rounded-full bg-[#7AA3C8] hidden"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cierre clínico personalizado con Avatar Protocolo -->
+                <div class="subblock-volver p-3 flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-[#142D49] border border-[#426B8F]/40 shrink-0">
+                        <img
+                            src="./assets/avatar-protocol.jpg"
+                            alt="Protocolo clínico VOLVER"
+                            class="w-full h-full object-cover object-top"
+                        >
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-[#9CA8B7] leading-relaxed">
+                        <strong class="text-[#F7F9FC] font-semibold">Criterio clínico directo:</strong> con este reporte evalúo cómo asimilaste el estímulo y definimos el próximo paso.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- BARRA INFERIOR DE ACCIÓN (Negro base #000000 como marco inferior Android) -->
+        <footer class="bg-[#000000] border-t border-[#DCE3EA]/[0.08] px-4 pt-3.5 pb-6 flex flex-col gap-2.5">
+            <!-- Botón Principal: Azul VOLVER #1F4268 (hover #2A5482) en formato píldora Android -->
+            <button
+                type="button"
+                id="sendWhatsappBtn"
+                class="w-full flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-full bg-[#1F4268] hover:bg-[#2A5482] border border-[#7AA3C8]/25 text-white font-bold text-sm sm:text-[15px] shadow-lg active:scale-[0.98] transition-all duration-150"
+            >
+                <!-- Ícono SVG limpio de WhatsApp (vector corregido) -->
+                <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12.031 2C6.504 2 2.008 6.495 2.006 12.022c0 1.766.462 3.49 1.338 5.008L2 22l5.106-1.339a9.978 9.978 0 004.922 1.298h.004c5.524 0 10.02-4.496 10.022-10.023A9.96 9.96 0 0019.124 4.93 9.956 9.956 0 0012.031 2zm5.847 14.178c-.246.692-1.434 1.324-1.988 1.404-.512.076-1.175.108-1.894-.12-.436-.139-.997-.324-1.714-.634-3.016-1.302-4.985-4.35-5.136-4.55-.15-.2-1.224-1.628-1.224-3.106 0-1.477.774-2.203 1.049-2.503.275-.3.6-.375.8-.375.2 0 .4.002.575.011.184.009.431-.07.674.514.25.601.85 2.077.925 2.227.075.15.125.325.025.525-.1.2-.15.325-.3.5-.15.175-.315.39-.45.525-.15.15-.306.313-.131.613.175.3.778 1.284 1.671 2.08 1.148 1.023 2.116 1.34 2.416 1.49.3.15.475.125.65-.075.175-.2.75-.875.95-1.175.2-.3.4-.25.675-.15.275.1 1.75.825 2.05.975.3.15.5.225.575.35.075.125.075.725-.171 1.417z"/>
+                </svg>
+                <span>Enviar evolución por WhatsApp</span>
+            </button>
+
+            <!-- Botón Secundario Neutro: Gris botón secundario #242424 (hover #2E333A) -->
+            <button
+                type="button"
+                id="copySummaryBtn"
+                class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-[#242424] hover:bg-[#2E333A] border border-[#DCE3EA]/[0.08] text-[#F7F9FC] text-xs font-semibold active:scale-[0.98] transition-all duration-150"
+            >
+                <svg class="w-4 h-4 text-[#9CA8B7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>Copiar resumen para pegar en el chat</span>
+            </button>
+
+            <p class="text-center font-mono text-[10px] tracking-[0.14em] text-[#687586] uppercase pt-1.5">
+                VOLVER – Recuperación Real · Salta
+            </p>
+        </footer>
+    </div>
+
+    <!-- Notificación Toast Flotante (Azul hielo #EAF1F7 + texto Azul noche #142D49 según manual) -->
+    <div
+        id="toast"
+        role="status"
+        aria-live="polite"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-[#EAF1F7] border border-[#7AA3C8]/40 text-[#142D49] text-xs font-bold shadow-2xl flex items-center gap-2 opacity-0 pointer-events-none translate-y-3 transition-all duration-200 whitespace-nowrap"
+    >
+        <span class="w-2 h-2 rounded-full bg-[#5E8F7A]"></span>
+        <span id="toastMessage">Resumen copiado</span>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // Número oficial de WhatsApp de VOLVER – Recuperación Real
+            const CLINIC_PHONE = '5493876562717';
+
+            // Pre-carga de avatares dinámicos del Semáforo para transición instantánea
+            const AVATAR_PATHS = {
+                low: './assets/avatar-eva-low.jpg',
+                mid: './assets/avatar-eva-mid.jpg',
+                high: './assets/avatar-eva-high.jpg'
+            };
+            Object.values(AVATAR_PATHS).forEach((src) => {
+                const img = new Image();
+                img.src = src;
+            });
+
+            // Estado del formulario (100% compatible con parseSemaforoText del Panel Clínico VOLVER)
+            const state = {
+                painLevel: 3,
+                painLabel: 'Leve / Controlado',
+                avatarBand: 'low',
+                evolution: '',
+                symptoms: new Set(),
+                nextSession: 'Sí, pasame horarios'
+            };
+
+            // Referencias DOM
+            const greetingEl = document.getElementById('dynamicGreeting');
+            const heroContextBar = document.getElementById('heroContextBar');
+            const heroZoneBadge = document.getElementById('heroZoneBadge');
+            const heroSessionBadge = document.getElementById('heroSessionBadge');
+            const nameInput = document.getElementById('patientName');
+            const zoneInput = document.getElementById('treatedZone');
+            const painSlider = document.getElementById('painSlider');
+            const quickEvaBtns = document.querySelectorAll('[data-quick-eva]');
+            const painValueEl = document.getElementById('painValue');
+            const painStatusPill = document.getElementById('painStatusPill');
+            const painStatusDot = document.getElementById('painStatusDot');
+            const painStatusText = document.getElementById('painStatusText');
+            const avatarFeedbackBox = document.getElementById('avatarFeedbackBox');
+            const painAvatarImg = document.getElementById('painAvatarImg');
+            const painInsightTag = document.getElementById('painInsightTag');
+            const painInsightText = document.getElementById('painInsightText');
+            const evolutionSection = document.getElementById('evolutionSection');
+            const evolutionCards = document.querySelectorAll('.evolution-card');
+            const evolutionError = document.getElementById('evolutionError');
+            const symptomChips = document.querySelectorAll('.symptom-chip');
+            const commentInput = document.getElementById('patientComment');
+            const sessionOptions = document.querySelectorAll('.session-option');
+            const sendWhatsappBtn = document.getElementById('sendWhatsappBtn');
+            const copySummaryBtn = document.getElementById('copySummaryBtn');
+            const toastEl = document.getElementById('toast');
+            const toastMsgEl = document.getElementById('toastMessage');
+
+            let toastTimer = null;
+
+            function formatTitleWords(str) {
+                return str
+                    .split(/\s+/)
+                    .filter(Boolean)
+                    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                    .join(' ');
+            }
+
+            function updateHeroBadges(zoneText, sessionRaw) {
+                let anyVisible = false;
+
+                if (zoneText) {
+                    heroZoneBadge.textContent = `Zona · ${zoneText}`;
+                    heroZoneBadge.classList.remove('hidden');
+                    anyVisible = true;
+                } else {
+                    heroZoneBadge.classList.add('hidden');
+                }
+
+                if (sessionRaw) {
+                    heroSessionBadge.textContent = `Sesión ${sessionRaw}`;
+                    heroSessionBadge.classList.remove('hidden');
+                    anyVisible = true;
+                }
+
+                heroContextBar.classList.toggle('hidden', !anyVisible);
+            }
+
+            // 1. Pre-carga desde parámetros URL (?n=Nombre&z=Zona&s=Sesion)
+            function initFromURLParams() {
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const rawName = (params.get('n') || params.get('nombre') || '').trim();
+                    const rawZone = (params.get('z') || params.get('zona') || '').trim();
+                    const rawSession = (params.get('s') || params.get('sesion') || '').trim();
+
+                    if (rawName) {
+                        const formattedName = formatTitleWords(rawName);
+                        greetingEl.textContent = `¡Hola ${formattedName}!`;
+                        nameInput.value = formattedName;
+                    }
+
+                    let formattedZone = '';
+                    if (rawZone) {
+                        formattedZone = rawZone.charAt(0).toUpperCase() + rawZone.slice(1);
+                        zoneInput.value = formattedZone;
+                    }
+
+                    updateHeroBadges(formattedZone, rawSession);
+                } catch (err) {
+                    console.error('Error leyendo parámetros URL:', err);
+                }
+            }
+
+            // Actualizar saludo y badge en vivo si el paciente escribe su nombre/zona
+            nameInput.addEventListener('input', () => {
+                const val = nameInput.value.trim();
+                greetingEl.textContent = val ? `¡Hola ${val.split(/\s+/)[0]}!` : '¡Hola! ¿Cómo venís hoy?';
+            });
+
+            zoneInput.addEventListener('input', () => {
+                const params = new URLSearchParams(window.location.search);
+                const rawSession = (params.get('s') || params.get('sesion') || '').trim();
+                updateHeroBadges(zoneInput.value.trim(), rawSession);
+            });
+
+            // 2. Configuración clínica VOLVER Dark Edition (Verde #5E8F7A · Ámbar #C98A3A · Coral #C45A65)
+            function getPainConfig(level) {
+                if (level === 0) {
+                    return {
+                        label: 'Sin dolor',
+                        band: 'low',
+                        color: '#5E8F7A',
+                        light: '#79AD97',
+                        bg: 'rgba(94, 143, 122, 0.18)',
+                        border: 'rgba(121, 173, 151, 0.38)',
+                        boxBorder: 'rgba(121, 173, 151, 0.28)',
+                        glow: 'rgba(94, 143, 122, 0.28)',
+                        insightTag: 'Recuperación ideal',
+                        insightText: 'Excelente: estar sin molestias indica que el tejido asimiló muy bien la sesión.'
+                    };
+                }
+                if (level <= 3) {
+                    return {
+                        label: 'Leve / Controlado',
+                        band: 'low',
+                        color: '#5E8F7A',
+                        light: '#79AD97',
+                        bg: 'rgba(94, 143, 122, 0.15)',
+                        border: 'rgba(121, 173, 151, 0.34)',
+                        boxBorder: 'rgba(121, 173, 151, 0.24)',
+                        glow: 'rgba(94, 143, 122, 0.26)',
+                        insightTag: 'Respuesta favorable',
+                        insightText: 'Muy buena señal: el cuerpo asimiló bien el estímulo y bajó la tensión defensiva.'
+                    };
+                }
+                if (level <= 6) {
+                    return {
+                        label: 'Moderado / Molesto',
+                        band: 'mid',
+                        color: '#C98A3A',
+                        light: '#DFAA65',
+                        bg: 'rgba(201, 138, 58, 0.16)',
+                        border: 'rgba(223, 170, 101, 0.36)',
+                        boxBorder: 'rgba(201, 138, 58, 0.28)',
+                        glow: 'rgba(201, 138, 58, 0.28)',
+                        insightTag: 'Evaluación Día 3',
+                        insightText: 'Dentro de lo esperable mientras el tejido reorganiza cargas. Marcá abajo qué cambios notaste.'
+                    };
+                }
+                if (level <= 8) {
+                    return {
+                        label: 'Fuerte / Limitante',
+                        band: 'high',
+                        color: '#C45A65',
+                        light: '#E2858E',
+                        bg: 'rgba(196, 90, 101, 0.16)',
+                        border: 'rgba(226, 133, 142, 0.36)',
+                        boxBorder: 'rgba(196, 90, 101, 0.28)',
+                        glow: 'rgba(196, 90, 101, 0.28)',
+                        insightTag: 'Seguimiento prioritario',
+                        insightText: 'Tranquilo/a, estoy para acompañarte. Completá abajo así evalúo tu caso y ajustamos el plan.'
+                    };
+                }
+                return {
+                    label: 'Intenso / Agudo',
+                    band: 'high',
+                    color: '#C45A65',
+                    light: '#E2858E',
+                    bg: 'rgba(196, 90, 101, 0.22)',
+                    border: 'rgba(226, 133, 142, 0.45)',
+                    boxBorder: 'rgba(226, 133, 142, 0.35)',
+                    glow: 'rgba(196, 90, 101, 0.34)',
+                    insightTag: 'Atención prioritaria',
+                    insightText: 'Enviame este reporte ahora por WhatsApp para revisar qué pasó y darte indicaciones precisas.'
+                };
+            }
+
+            function updatePainUI(value) {
+                const level = parseInt(value, 10);
+                const cfg = getPainConfig(level);
+
+                state.painLevel = level;
+                state.painLabel = cfg.label;
+
+                painValueEl.textContent = level;
+                painStatusText.textContent = cfg.label;
+
+                painStatusPill.style.backgroundColor = cfg.bg;
+                painStatusPill.style.borderColor = cfg.border;
+                painStatusPill.style.color = cfg.light;
+                painStatusDot.style.backgroundColor = cfg.light;
+
+                avatarFeedbackBox.style.borderColor = cfg.boxBorder;
+                painInsightTag.style.color = cfg.light;
+                painInsightTag.textContent = cfg.insightTag;
+                painInsightText.textContent = cfg.insightText;
+
+                if (state.avatarBand !== cfg.band) {
+                    state.avatarBand = cfg.band;
+                    painAvatarImg.style.opacity = '0.35';
+                    setTimeout(() => {
+                        painAvatarImg.src = AVATAR_PATHS[cfg.band];
+                        painAvatarImg.style.opacity = '1';
+                    }, 90);
+                }
+
+                const percent = `${(level / 10) * 100}%`;
+                document.documentElement.style.setProperty('--pain-color', cfg.color);
+                document.documentElement.style.setProperty('--pain-light', cfg.light);
+                document.documentElement.style.setProperty('--pain-glow', cfg.glow);
+                document.documentElement.style.setProperty('--slider-percent', percent);
+            }
+
+            painSlider.addEventListener('input', (e) => updatePainUI(e.target.value));
+
+            quickEvaBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const targetVal = btn.getAttribute('data-quick-eva');
+                    painSlider.value = targetVal;
+                    updatePainUI(targetVal);
+                });
+            });
+
+            // 3. Selección única: Evolución general (Grafito VOLVER #202833 + borde Azul acero #426B8F)
+            evolutionCards.forEach((card) => {
+                card.addEventListener('click', () => {
+                    state.evolution = card.getAttribute('data-evolution');
+                    evolutionError.classList.add('hidden');
+                    evolutionSection.style.borderColor = '';
+
+                    evolutionCards.forEach((c) => {
+                        const isSelected = c === card;
+                        const labelEl = c.querySelector('.evol-label');
+                        c.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+
+                        if (isSelected) {
+                            c.classList.remove('bg-[#121212]', 'border-[#DCE3EA]/[0.07]', 'hover:bg-[#1C2026]');
+                            c.classList.add('bg-[#202833]', 'border-[#426B8F]', 'ring-1', 'ring-[#426B8F]/35');
+                            labelEl.classList.replace('text-[#F7F9FC]', 'text-white');
+                        } else {
+                            c.classList.remove('bg-[#202833]', 'border-[#426B8F]', 'ring-1', 'ring-[#426B8F]/35');
+                            c.classList.add('bg-[#121212]', 'border-[#DCE3EA]/[0.07]', 'hover:bg-[#1C2026]');
+                            labelEl.classList.replace('text-white', 'text-[#F7F9FC]');
+                        }
+                    });
+                });
+            });
+
+            // 4. Selección múltiple: Chips estilo filtro activo Android (Azul VOLVER #1F4268 + texto #FFFFFF)
+            symptomChips.forEach((chip) => {
+                chip.addEventListener('click', () => {
+                    const val = chip.getAttribute('data-symptom');
+                    if (state.symptoms.has(val)) {
+                        state.symptoms.delete(val);
+                        chip.classList.remove('bg-[#1F4268]', 'border-[#7AA3C8]/45', 'text-white');
+                        chip.classList.add('bg-[#1C2026]', 'border-[#DCE3EA]/[0.08]', 'text-[#9CA8B7]');
+                    } else {
+                        state.symptoms.add(val);
+                        chip.classList.remove('bg-[#1C2026]', 'border-[#DCE3EA]/[0.08]', 'text-[#9CA8B7]');
+                        chip.classList.add('bg-[#1F4268]', 'border-[#7AA3C8]/45', 'text-white');
+                    }
+                });
+            });
+
+            // 5. Selección única: Próximo turno (Grafito VOLVER #202833 + Azul acero #426B8F)
+            sessionOptions.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    state.nextSession = btn.getAttribute('data-session');
+
+                    sessionOptions.forEach((b) => {
+                        const isSelected = b === btn;
+                        const outerDot = b.querySelector('.session-dot');
+                        const innerDot = outerDot.querySelector('span');
+                        b.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+
+                        if (isSelected) {
+                            b.classList.remove('bg-[#121212]', 'text-[#9CA8B7]', 'border-[#DCE3EA]/[0.07]', 'font-medium', 'hover:bg-[#1C2026]', 'hover:text-[#F7F9FC]');
+                            b.classList.add('bg-[#202833]', 'text-white', 'border-[#426B8F]', 'font-semibold');
+                            outerDot.classList.remove('border-[#687586]');
+                            outerDot.classList.add('border-[#7AA3C8]');
+                            innerDot.classList.remove('hidden');
+                        } else {
+                            b.classList.remove('bg-[#202833]', 'text-white', 'border-[#426B8F]', 'font-semibold');
+                            b.classList.add('bg-[#121212]', 'text-[#9CA8B7]', 'border-[#DCE3EA]/[0.07]', 'font-medium', 'hover:bg-[#1C2026]', 'hover:text-[#F7F9FC]');
+                            outerDot.classList.remove('border-[#7AA3C8]');
+                            outerDot.classList.add('border-[#687586]');
+                            innerDot.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // 6. Armado del mensaje BMP limpio (100% compatible con parseSemaforoText del Panel Clínico)
+            function buildCleanWhatsAppMessage() {
+                const name = nameInput.value.trim() || 'No indicado';
+                const zone = zoneInput.value.trim();
+                const comment = commentInput.value.trim();
+                const symptomsList = Array.from(state.symptoms);
+
+                const lines = [
+                    '*SEGUIMIENTO VOLVER*',
+                    '━━━━━━━━━━━━━━━━',
+                    `▸ *Paciente:* ${name}`
+                ];
+
+                if (zone) {
+                    lines.push(`▸ *Zona:* ${zone}`);
+                }
+
+                lines.push(`▸ *Dolor hoy:* ${state.painLevel}/10 _(${state.painLabel})_`);
+                lines.push(`▸ *Evolución:* ${state.evolution}`);
+
+                if (symptomsList.length > 0) {
+                    lines.push('▸ *Cambios notados:*');
+                    symptomsList.forEach((item) => {
+                        lines.push(`  • ${item}`);
+                    });
+                }
+
+                if (comment) {
+                    lines.push(`▸ *Nota:* _${comment}_`);
+                }
+
+                lines.push(`▸ *Próximo turno:* ${state.nextSession}`);
+
+                return lines.join('\n');
+            }
+
+            // Validación antes de enviar o copiar
+            function validateForm() {
+                if (!state.evolution) {
+                    evolutionError.classList.remove('hidden');
+                    evolutionSection.style.borderColor = 'rgba(196, 90, 101, 0.65)';
+                    evolutionSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return false;
+                }
+                return true;
+            }
+
+            // Toast flotante en Azul Hielo (#EAF1F7)
+            function showToast(msg) {
+                toastMsgEl.textContent = msg;
+                toastEl.classList.remove('opacity-0', 'translate-y-3');
+                toastEl.classList.add('opacity-100', 'translate-y-0');
+
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toastEl.classList.remove('opacity-100', 'translate-y-0');
+                    toastEl.classList.add('opacity-0', 'translate-y-3');
+                }, 2500);
+            }
+
+            // Acción principal: Enviar por WhatsApp
+            sendWhatsappBtn.addEventListener('click', () => {
+                if (!validateForm()) return;
+
+                const message = buildCleanWhatsAppMessage();
+                const url = `https://api.whatsapp.com/send?phone=${CLINIC_PHONE}&text=${encodeURIComponent(message)}`;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+
+            // Acción secundaria: Copiar resumen
+            copySummaryBtn.addEventListener('click', async () => {
+                if (!validateForm()) return;
+
+                const message = buildCleanWhatsAppMessage();
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(message);
+                    } else {
+                        const tempArea = document.createElement('textarea');
+                        tempArea.value = message;
+                        tempArea.setAttribute('readonly', '');
+                        tempArea.style.position = 'fixed';
+                        tempArea.style.opacity = '0';
+                        document.body.appendChild(tempArea);
+                        tempArea.select();
+                        tempArea.setSelectionRange(0, 99999);
+                        document.execCommand('copy');
+                        document.body.removeChild(tempArea);
+                    }
+                    showToast('Resumen copiado · Pegalo en WhatsApp');
+                } catch (err) {
+                    console.error('Error al copiar:', err);
+                    showToast('No se pudo copiar automáticamente');
+                }
+            });
+
+            // Inicialización
+            initFromURLParams();
+            updatePainUI(painSlider.value);
+        })();
+    </script>
+</body>
+</html>
